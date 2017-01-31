@@ -1,10 +1,7 @@
-﻿namespace StatelessExampleByOrderStates.Models.Stateless
+﻿namespace StatelessExampleByOrderStates.Stateless
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using global::Stateless;
+    using Models;
 
     public static class StateMachineFactory
     {
@@ -14,8 +11,7 @@
             return Configure(stateMachine);
         }
 
-        private static StateMachine<OrderStates, OrderTriggers> Configure(
-            StateMachine<OrderStates, OrderTriggers> stateMachine)
+        private static StateMachine<OrderStates, OrderTriggers> Configure(StateMachine<OrderStates, OrderTriggers> stateMachine)
         {
             stateMachine.Configure(OrderStates.OnAir)
                 .Permit(OrderTriggers.ApproveByLocalUser, OrderStates.PartiallyApproved)

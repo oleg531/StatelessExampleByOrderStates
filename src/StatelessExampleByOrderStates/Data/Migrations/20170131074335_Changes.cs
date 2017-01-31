@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StatelessExampleByOrderStates.Data.Migrations
 {
-    using Models.Stateless;
+    using Stateless;
 
     public partial class Changes : Migration
     {

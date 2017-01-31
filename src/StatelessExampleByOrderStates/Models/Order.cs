@@ -1,6 +1,6 @@
 ﻿namespace StatelessExampleByOrderStates.Models
 {
-    using Stateless;
+    using StatelessExampleByOrderStates.Stateless;
 
     public class Order : BaseEntity
     {

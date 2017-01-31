@@ -1,4 +1,4 @@
-﻿namespace StatelessExampleByOrderStates.Models.Stateless
+﻿namespace StatelessExampleByOrderStates.Stateless
 {
     public enum OrderTriggers
     {

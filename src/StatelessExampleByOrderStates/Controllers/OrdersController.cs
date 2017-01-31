@@ -10,7 +10,7 @@ using StatelessExampleByOrderStates.Models;
 
 namespace StatelessExampleByOrderStates.Controllers
 {
-    using Models.Stateless;
+    using Stateless;
 
     public class OrdersController : Controller
     {
