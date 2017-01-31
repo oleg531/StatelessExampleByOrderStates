@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace StatelessExampleByOrderStates.Models.AccountViewModels
 {
+    using Base;
+
     public class RegisterViewModel
     {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public UserRole UserRole { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

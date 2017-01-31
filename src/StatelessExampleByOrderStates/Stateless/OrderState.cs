@@ -1,6 +1,6 @@
 ﻿namespace StatelessExampleByOrderStates.Stateless
 {
-    public enum OrderStates
+    public enum OrderState
     {
         OnAir = 10,
         PartiallyApproved = 20,

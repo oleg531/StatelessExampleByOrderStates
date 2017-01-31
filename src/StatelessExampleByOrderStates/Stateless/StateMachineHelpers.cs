@@ -5,7 +5,7 @@
 
     public static class StateMachineHelpers
     {
-        public static IEnumerable<OrderTriggers> GetAvailableTriggers(Order order)
+        public static IEnumerable<OrderTrigger> GetAvailableTriggers(Order order)
         {
             var stateMachine = StateMachineFactory.Create(order);
             return stateMachine.PermittedTriggers;

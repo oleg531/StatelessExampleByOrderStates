@@ -1,4 +1,5 @@
-﻿@model RegisterViewModel
+﻿@using StatelessExampleByOrderStates.Models.Base;
+@model RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -14,6 +15,13 @@
         <div class="col-md-10">
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserRole" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
+            <span asp-validation-for="UserRole" class="text-danger" />            
         </div>
     </div>
     <div class="form-group">

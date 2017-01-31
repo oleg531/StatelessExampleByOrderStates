@@ -151,7 +151,7 @@ namespace StatelessExampleByOrderStates.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangeStatus(int id, OrderTriggers trigger)
+        public async Task<IActionResult> ChangeStatus(int id, OrderTrigger trigger)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
             var stateMachine = StateMachineFactory.Create(order);

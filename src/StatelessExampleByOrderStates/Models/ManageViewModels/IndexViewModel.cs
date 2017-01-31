@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace StatelessExampleByOrderStates.Models.ManageViewModels
 {
+    using Base;
+
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
+
+        public UserRole UserRole { get; set; }
 
         public IList<UserLoginInfo> Logins { get; set; }
 

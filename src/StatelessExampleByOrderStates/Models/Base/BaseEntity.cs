@@ -1,4 +1,4 @@
-﻿namespace StatelessExampleByOrderStates.Models
+﻿namespace StatelessExampleByOrderStates.Models.Base
 {
     public class BaseEntity
     {

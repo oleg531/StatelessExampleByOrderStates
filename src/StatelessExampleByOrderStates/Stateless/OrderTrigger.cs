@@ -1,6 +1,6 @@
 ﻿namespace StatelessExampleByOrderStates.Stateless
 {
-    public enum OrderTriggers
+    public enum OrderTrigger
     {
         ApproveByLocalUser = 10,
         ApproveByMainUser = 20,

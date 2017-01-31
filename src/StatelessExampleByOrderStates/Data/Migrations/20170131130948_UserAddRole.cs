@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using StatelessExampleByOrderStates.Models.Base;
 
 namespace StatelessExampleByOrderStates.Data.Migrations
 {
-    using Stateless;
-
-    public partial class Changes : Migration
+    public partial class UserAddRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "OrderState",
-                table: "Orders",
+                name: "UserRole",
+                table: "AspNetUsers",
                 nullable: false,
-                defaultValue: OrderState.OnAir);
+                defaultValue: UserRole.RegionalUser);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "OrderState",
-                table: "Orders");
+                name: "UserRole",
+                table: "AspNetUsers");
         }
     }
 }

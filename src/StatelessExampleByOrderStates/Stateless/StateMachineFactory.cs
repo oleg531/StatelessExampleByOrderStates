@@ -5,20 +5,20 @@
 
     public static class StateMachineFactory
     {
-        public static StateMachine<OrderStates, OrderTriggers> Create(Order order)
+        public static StateMachine<OrderState, OrderTrigger> Create(Order order)
         {
-            var stateMachine = new StateMachine<OrderStates, OrderTriggers>(() => order.OrderState, s => order.OrderState = s);
+            var stateMachine = new StateMachine<OrderState, OrderTrigger>(() => order.OrderState, s => order.OrderState = s);
             return Configure(stateMachine);
         }
 
-        private static StateMachine<OrderStates, OrderTriggers> Configure(StateMachine<OrderStates, OrderTriggers> stateMachine)
+        private static StateMachine<OrderState, OrderTrigger> Configure(StateMachine<OrderState, OrderTrigger> stateMachine)
         {
-            stateMachine.Configure(OrderStates.OnAir)
-                .Permit(OrderTriggers.ApproveByLocalUser, OrderStates.PartiallyApproved)
-                .Permit(OrderTriggers.Reject, OrderStates.Rejected);
+            stateMachine.Configure(OrderState.OnAir)
+                .Permit(OrderTrigger.ApproveByLocalUser, OrderState.PartiallyApproved)
+                .Permit(OrderTrigger.Reject, OrderState.Rejected);
 
-            stateMachine.Configure(OrderStates.PartiallyApproved)
-                .Permit(OrderTriggers.ApproveByMainUser, OrderStates.Approved);
+            stateMachine.Configure(OrderState.PartiallyApproved)
+                .Permit(OrderTrigger.ApproveByMainUser, OrderState.Approved);
 
             return stateMachine;
         }

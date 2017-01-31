@@ -1,0 +1,29 @@
+﻿@using StatelessExampleByOrderStates.Models.Base;
+@model ChangeRoleViewModel
+@{
+    ViewData["Title"] = "Change Password";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="Manage" asp-action="ChangeRole" method="post" class="form-horizontal">
+    <h4>Change Role Form</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="UserRole" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
+            <span asp-validation-for="UserRole" class="text-danger" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Change role</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

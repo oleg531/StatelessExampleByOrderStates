@@ -60,7 +60,8 @@ namespace StatelessExampleByOrderStates.Controllers
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                UserRole = user.UserRole
             };
             return View(model);
         }
@@ -294,6 +295,30 @@ namespace StatelessExampleByOrderStates.Controllers
                 CurrentLogins = userLogins,
                 OtherLogins = otherLogins
             });
+        }
+
+        [HttpGet]
+        public IActionResult ChangeRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRole(ChangeRoleViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+
+                user.UserRole = model.UserRole;
+                await _userManager.UpdateAsync(user);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
         //

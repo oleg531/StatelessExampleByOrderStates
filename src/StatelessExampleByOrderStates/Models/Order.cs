@@ -1,11 +1,12 @@
 ﻿namespace StatelessExampleByOrderStates.Models
 {
-    using StatelessExampleByOrderStates.Stateless;
+    using Base;
+    using Stateless;
 
     public class Order : BaseEntity
     {
         public string Name { get; set; }
         public string Market { get; set; }
-        public OrderStates OrderState { get; set; }
+        public OrderState OrderState { get; set; }
     }
 }
