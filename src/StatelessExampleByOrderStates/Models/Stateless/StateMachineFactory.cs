@@ -14,9 +14,16 @@
             return Configure(stateMachine);
         }
 
-        private static StateMachine<OrderStates, OrderTriggers> Configure(StateMachine<OrderStates, OrderTriggers> stateMachine)
+        private static StateMachine<OrderStates, OrderTriggers> Configure(
+            StateMachine<OrderStates, OrderTriggers> stateMachine)
         {
-            // todo configuration states here
+            stateMachine.Configure(OrderStates.OnAir)
+                .Permit(OrderTriggers.ApproveByLocalUser, OrderStates.PartiallyApproved)
+                .Permit(OrderTriggers.Reject, OrderStates.Rejected);
+
+            stateMachine.Configure(OrderStates.PartiallyApproved)
+                .Permit(OrderTriggers.ApproveByMainUser, OrderStates.Approved);
+
             return stateMachine;
         }
     }
