@@ -1,3 +1,4 @@
+@using StatelessExampleByOrderStates.Models.Base
 @using StatelessExampleByOrderStates.Stateless
 @model IEnumerable<StatelessExampleByOrderStates.Models.Order>
 
@@ -43,7 +44,7 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
                 @{
-                    foreach (var trigger in StateMachineHelpers.GetAvailableTriggers(item))
+                    foreach (var trigger in StateMachineHelpers.GetAvailableTriggers(item, (UserRole)ViewBag.UserRole))
                     {
                         <span> | </span><strong><a asp-action="ChangeStatus" asp-route-id="@item.Id" asp-route-trigger="@((int)trigger)">@trigger.ToString()</a></strong>
                     }

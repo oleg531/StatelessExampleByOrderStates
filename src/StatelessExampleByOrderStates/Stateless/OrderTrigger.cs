@@ -2,8 +2,7 @@
 {
     public enum OrderTrigger
     {
-        ApproveByLocalUser = 10,
-        ApproveByMainUser = 20,
+        Approve = 10,        
         Reject = 30
     }
 }

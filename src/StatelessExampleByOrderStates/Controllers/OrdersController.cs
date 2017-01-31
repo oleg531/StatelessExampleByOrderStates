@@ -10,20 +10,25 @@ using StatelessExampleByOrderStates.Models;
 
 namespace StatelessExampleByOrderStates.Controllers
 {
+    using Microsoft.AspNetCore.Identity;
     using Stateless;
 
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.UserRole = currentUser.UserRole;
             return View(await _context.Orders.ToListAsync());
         }
 
@@ -154,7 +159,8 @@ namespace StatelessExampleByOrderStates.Controllers
         public async Task<IActionResult> ChangeStatus(int id, OrderTrigger trigger)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
-            var stateMachine = StateMachineFactory.Create(order);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var stateMachine = StateMachineFactory.Create(order, currentUser.UserRole);
             stateMachine.Fire(trigger);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

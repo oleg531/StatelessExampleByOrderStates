@@ -2,23 +2,25 @@
 {
     using global::Stateless;
     using Models;
+    using Models.Base;
 
     public static class StateMachineFactory
     {
-        public static StateMachine<OrderState, OrderTrigger> Create(Order order)
+        public static StateMachine<OrderState, OrderTrigger> Create(Order order, UserRole role)
         {
             var stateMachine = new StateMachine<OrderState, OrderTrigger>(() => order.OrderState, s => order.OrderState = s);
-            return Configure(stateMachine);
+            return Configure(stateMachine, role);
         }
 
-        private static StateMachine<OrderState, OrderTrigger> Configure(StateMachine<OrderState, OrderTrigger> stateMachine)
+        private static StateMachine<OrderState, OrderTrigger> Configure(StateMachine<OrderState, OrderTrigger> stateMachine, UserRole role)
         {
             stateMachine.Configure(OrderState.OnAir)
-                .Permit(OrderTrigger.ApproveByLocalUser, OrderState.PartiallyApproved)
+                .PermitIf(OrderTrigger.Approve, OrderState.PartiallyApproved, () => role == UserRole.RegionalUser)
+                .PermitIf(OrderTrigger.Approve, OrderState.Approved, () => role == UserRole.MainUser)
                 .Permit(OrderTrigger.Reject, OrderState.Rejected);
 
             stateMachine.Configure(OrderState.PartiallyApproved)
-                .Permit(OrderTrigger.ApproveByMainUser, OrderState.Approved);
+                .PermitIf(OrderTrigger.Approve, OrderState.Approved, () => role == UserRole.MainUser);
 
             return stateMachine;
         }
